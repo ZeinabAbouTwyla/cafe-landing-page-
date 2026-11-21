@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الدّكة كافيه | قهوتك على أصولها</title>
+<meta name="description" content="الدّكة كافيه — قهوة مختصة وأجواء مصرية دافية في قلب أسيوط.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --brown-900:#2b1a12;
+    --brown-700:#4a2c1d;
+    --brown-500:#6f4226;
+    --cream:#f7f0e3;
+    --cream-dark:#efe4cf;
+    --caramel:#c97b3d;
+    --caramel-dark:#a85f26;
+    --sage:#7d8a6a;
+    --ink:#241611;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Cairo',sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.7;
+    overflow-x:hidden;
+  }
+  img,svg{max-width:100%;display:block}
+  a{text-decoration:none;color:inherit}
+  .container{width:min(1120px,92%);margin-inline:auto}
+
+  /* ===== Header ===== */
+  header{
+    position:fixed;inset-inline:0;top:0;z-index:50;
+    transition:background .3s, box-shadow .3s;
+  }
+  header.scrolled{
+    background:rgba(43,26,18,.96);
+    box-shadow:0 8px 30px rgba(0,0,0,.25);
+    backdrop-filter:blur(6px);
+  }
+  .nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:1rem 0;color:var(--cream);
+  }
+  .logo{display:flex;align-items:center;gap:.6rem;font-weight:900;font-size:1.5rem}
+  .logo .cup{width:40px;height:40px}
+  .logo small{display:block;font-size:.65rem;font-weight:600;color:var(--caramel);letter-spacing:2px}
+  .nav-links{display:flex;gap:2rem;list-style:none;font-weight:700}
+  .nav-links a{position:relative;padding:.25rem 0;opacity:.9;transition:.25s}
+  .nav-links a::after{
+    content:"";position:absolute;bottom:0;right:0;width:0;height:2px;
+    background:var(--caramel);transition:width .25s;border-radius:2px;
+  }
+  .nav-links a:hover{opacity:1}
+  .nav-links a:hover::after{width:100%}
+  .nav-cta{
+    background:var(--caramel);color:#fff;padding:.55rem 1.4rem;border-radius:50px;
+    font-weight:800;font-size:.95rem;transition:.25s;border:2px solid var(--caramel);
+  }
+  .nav-cta:hover{background:transparent;color:var(--caramel)}
+  .burger{
+    display:none;background:none;border:none;cursor:pointer;
+    width:42px;height:42px;position:relative;z-index:60;
+  }
+  .burger span{
+    display:block;width:26px;height:3px;background:var(--cream);margin:5px auto;
+    border-radius:3px;transition:.3s;
+  }
+  .burger.open span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+  .burger.open span:nth-child(2){opacity:0}
+  .burger.open span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+
+  .mobile-menu{
+    position:fixed;inset:0;background:var(--brown-900);z-index:55;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.6rem;
+    transform:translateY(-100%);transition:transform .4s ease;
+  }
+  .mobile-menu.open{transform:translateY(0)}
+  .mobile-menu a{color:var(--cream);font-size:1.5rem;font-weight:800}
+  .mobile-menu a:hover{color:var(--caramel)}
+
+  /* ===== Hero ===== */
+  .hero{
+    min-height:100vh;
+    background:
+      radial-gradient(900px 500px at 85% 10%, rgba(201,123,61,.25), transparent 60%),
+      linear-gradient(160deg, #241611 0%, #3a2417 55%, #4a2c1d 100%);
+    color:var(--cream);
+    display:flex;align-items:center;
+    padding:7.5rem 0 4rem;
+    position:relative;overflow:hidden;
+  }
+  .hero::after{
+    content:"";position:absolute;inset:0;
+    background-image:radial-gradient(rgba(247,240,227,.06) 1px, transparent 1px);
+    background-size:26px 26px;pointer-events:none;
+  }
+  .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:center;position:relative;z-index:2}
+  .hero .kicker{
+    display:inline-flex;align-items:center;gap:.5rem;
+    background:rgba(201,123,61,.18);border:1px solid rgba(201,123,61,.5);
+    color:#e9b98a;padding:.35rem 1rem;border-radius:50px;font-weight:700;font-size:.85rem;
+  }
+  .hero h1{
+    font-size:clamp(2.4rem,5.4vw,4rem);font-weight:900;line-height:1.25;margin:1.1rem 0 .8rem;
+  }
+  .hero h1 em{
+    font-style:normal;color:var(--caramel);position:relative;white-space:nowrap;
+  }
+  .hero h1 em::after{
+    content:"";position:absolute;right:0;left:0;bottom:3px;height:9px;
+    background:rgba(201,123,61,.22);border-radius:6px;z-index:-1;
+  }
+  .hero p{color:#d9c7b2;font-size:1.12rem;max-width:34rem}
+  .hero-quote{
+    font-family:'Amiri',serif;font-size:1.25rem;color:#e9d6bd;
+    border-right:3px solid var(--caramel);padding-right:1rem;margin-top:1.4rem;
+  }
+  .hero-actions{display:flex;gap:1rem;margin-top:2rem;flex-wrap:wrap}
+  .btn{
+    padding:.8rem 2rem;border-radius:50px;font-weight:800;font-size:1rem;
+    transition:.25s;display:inline-flex;align-items:center;gap:.5rem;border:2px solid transparent;cursor:pointer;
+  }
+  .btn-primary{background:var(--caramel);color:#fff}
+  .btn-primary:hover{background:var(--caramel-dark);transform:translateY(-2px)}
+  .btn-ghost{border-color:rgba(247,240,227,.4);color:var(--cream)}
+  .btn-ghost:hover{border-color:var(--caramel);color:var(--caramel)}
+  .hero-art{position:relative}
+  .hero-art img{width:100%;border-radius:26px;display:block;filter:drop-shadow(0 30px 50px rgba(0,0,0,.35))}
+  .steam{animation:steam 3s ease-in-out infinite;opacity:.6}
+  .steam.s2{animation-delay:.8s}.steam.s3{animation-delay:1.6s}
+  @keyframes steam{
+    0%,100%{transform:translateY(0);opacity:.15}
+    50%{transform:translateY(-12px);opacity:.7}
+  }
+  .hero-stats{
+    display:flex;gap:2.5rem;margin-top:3rem;flex-wrap:wrap;
+  }
+  .hero-stats .stat strong{display:block;font-size:1.9rem;font-weight:900;color:var(--caramel)}
+  .hero-stats .stat span{font-size:.9rem;color:#cbb59c}
+
+  /* ===== Section base ===== */
+  section{padding:5.5rem 0}
+  .sec-head{text-align:center;max-width:640px;margin:0 auto 3.2rem}
+  .sec-head .tag{
+    color:var(--caramel-dark);font-weight:800;font-size:.9rem;letter-spacing:1px;
+    display:inline-block;background:rgba(201,123,61,.14);padding:.3rem 1.1rem;border-radius:50px;margin-bottom:.8rem;
+  }
+  .sec-head h2{font-size:clamp(1.8rem,3.6vw,2.6rem);font-weight:900;line-height:1.3}
+  .sec-head p{color:#6b5544;margin-top:.6rem}
+
+  /* reveal animation */
+  .reveal{opacity:0;transform:translateY(34px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.visible{opacity:1;transform:none}
+
+  /* ===== About ===== */
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center}
+  .about-visual{
+    background:linear-gradient(145deg,var(--brown-700),var(--brown-900));
+    border-radius:26px;padding:2.6rem;position:relative;overflow:hidden;
+    box-shadow:0 24px 60px rgba(43,26,18,.22);
+  }
+  .about-visual::before{
+    content:"";position:absolute;width:220px;height:220px;border-radius:50%;
+    background:rgba(201,123,61,.2);top:-70px;left:-70px;
+  }
+  .about-visual img{position:relative;z-index:2;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:18px;display:block}
+  .about-text h3{font-size:1.9rem;font-weight:900;margin-bottom:1rem}
+  .about-text p{color:#5d4836;margin-bottom:1rem}
+  .about-points{list-style:none;margin-top:1.4rem;display:grid;gap:.9rem}
+  .about-points li{display:flex;gap:.8rem;align-items:flex-start;font-weight:700;color:#43301f}
+  .about-points .tick{
+    flex:0 0 26px;height:26px;border-radius:50%;background:var(--sage);color:#fff;
+    display:grid;place-items:center;font-size:.8rem;margin-top:2px;
+  }
+
+  /* ===== Menu ===== */
+  .menu-sec{background:var(--cream-dark);position:relative}
+  .menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem}
+  .menu-card{
+    background:#fff;border-radius:20px;padding:1.8rem 1.6rem;position:relative;
+    box-shadow:0 10px 30px rgba(43,26,18,.08);
+    transition:transform .3s, box-shadow .3s;overflow:hidden;
+  }
+  .menu-card:hover{transform:translateY(-8px);box-shadow:0 22px 45px rgba(43,26,18,.16)}
+  .menu-card .photo{
+    width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:14px;
+    display:block;margin-bottom:1.1rem;
+  }
+  .menu-card h4{font-size:1.2rem;font-weight:900;display:flex;justify-content:space-between;align-items:baseline;gap:.6rem}
+  .menu-card h4 .price{color:var(--caramel-dark);white-space:nowrap}
+  .menu-card p{color:#7a6350;font-size:.93rem;margin-top:.4rem}
+  .menu-card .badge{
+    position:absolute;top:1rem;left:1rem;background:var(--caramel);color:#fff;
+    font-size:.72rem;font-weight:800;padding:.2rem .7rem;border-radius:50px;
+  }
+  .menu-note{
+    text-align:center;margin-top:2.4rem;color:#6b5544;font-weight:700;
+  }
+
+  /* ===== Features strip ===== */
+  .features{background:var(--brown-900);color:var(--cream)}
+  .features .sec-head h2{color:var(--cream)}
+  .features .sec-head p{color:#c4ae95}
+  .feat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4rem}
+  .feat{
+    background:rgba(247,240,227,.06);border:1px solid rgba(247,240,227,.12);
+    border-radius:18px;padding:1.8rem 1.4rem;text-align:center;transition:.3s;
+  }
+  .feat:hover{background:rgba(201,123,61,.14);border-color:rgba(201,123,61,.5);transform:translateY(-6px)}
+  .feat .f-ic{width:58px;height:58px;margin:0 auto 1rem;border-radius:50%;
+    background:rgba(201,123,61,.2);display:grid;place-items:center}
+  .feat h4{font-weight:900;margin-bottom:.4rem}
+  .feat p{font-size:.9rem;color:#c4ae95}
+
+  /* ===== Testimonials ===== */
+  .testi-wrap{max-width:760px;margin:0 auto;position:relative}
+  .testi-stage{overflow:hidden;border-radius:24px}
+  .testi-track{display:flex;transition:transform .55s ease}
+  .testi{
+    flex:0 0 100%;background:#fff;border-radius:24px;padding:2.6rem 2.4rem;text-align:center;
+    box-shadow:0 14px 40px rgba(43,26,18,.1);
+  }
+  .testi .stars{color:#e3a12f;font-size:1.15rem;letter-spacing:3px;margin-bottom:1rem}
+  .testi blockquote{font-size:1.15rem;font-weight:700;color:#43301f;line-height:1.9}
+  .testi .who{margin-top:1.4rem;display:flex;align-items:center;justify-content:center;gap:.9rem}
+  .testi .who .av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;
+    color:#fff;font-weight:900;font-size:1.15rem}
+  .testi .who .nm{text-align:right}
+  .testi .who .nm strong{display:block}
+  .testi .who .nm span{font-size:.82rem;color:#8a725c}
+  .testi-dots{display:flex;justify-content:center;gap:.55rem;margin-top:1.6rem}
+  .testi-dots button{
+    width:11px;height:11px;border-radius:50%;border:none;background:#d8c4a8;cursor:pointer;transition:.25s;
+  }
+  .testi-dots button.active{background:var(--caramel-dark);transform:scale(1.25)}
+
+  /* ===== Visit / contact ===== */
+  .visit{background:linear-gradient(145deg,#f3e6d2,#eedcba)}
+  .visit-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+  .visit-info h3{font-size:1.8rem;font-weight:900;margin-bottom:1.2rem}
+  .info-row{display:flex;gap:1rem;align-items:flex-start;margin-bottom:1.3rem}
+  .info-row .ic{
+    flex:0 0 46px;height:46px;border-radius:14px;background:#fff;
+    display:grid;place-items:center;box-shadow:0 6px 16px rgba(43,26,18,.1);
+  }
+  .info-row strong{display:block;font-size:1.05rem}
+  .info-row span{color:#6b5544;font-size:.95rem}
+  .book-form{
+    background:#fff;border-radius:22px;padding:2.2rem;box-shadow:0 18px 50px rgba(43,26,18,.14);
+  }
+  .book-form h4{font-size:1.3rem;font-weight:900;margin-bottom:.3rem}
+  .book-form .sub{color:#7a6350;font-size:.92rem;margin-bottom:1.4rem}
+  .field{margin-bottom:1.1rem}
+  .field label{display:block;font-weight:800;font-size:.9rem;margin-bottom:.35rem}
+  .field input,.field select{
+    width:100%;padding:.75rem 1rem;border:2px solid #e8dcc6;border-radius:12px;
+    font-family:inherit;font-size:.98rem;background:#fdfaf3;transition:.25s;color:var(--ink);
+  }
+  .field input:focus,.field select:focus{outline:none;border-color:var(--caramel)}
+  .field .err{color:#b03a2e;font-size:.8rem;font-weight:700;margin-top:.25rem;display:none}
+  .field.invalid input,.field.invalid select{border-color:#b03a2e}
+  .field.invalid .err{display:block}
+  .form-ok{
+    display:none;background:#e7f2e4;border:2px solid #7d8a6a;color:#3c4a2c;
+    border-radius:12px;padding:.9rem 1.1rem;font-weight:800;margin-top:1rem;
+  }
+  .form-ok.show{display:block}
+
+  /* ===== Footer ===== */
+  footer{background:var(--brown-900);color:#cbb59c;padding:3.5rem 0 1.5rem}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:2.5rem;padding-bottom:2.5rem;border-bottom:1px solid rgba(247,240,227,.12)}
+  .foot-grid h5{color:var(--cream);font-size:1.1rem;font-weight:900;margin-bottom:1rem}
+  .foot-grid ul{list-style:none;display:grid;gap:.55rem}
+  .foot-grid ul a:hover{color:var(--caramel)}
+  .foot-brand .logo{color:var(--cream);margin-bottom:.9rem}
+  .foot-brand p{font-size:.92rem;max-width:20rem}
+  .copy{text-align:center;padding-top:1.4rem;font-size:.85rem;color:#8a725c}
+
+  /* ===== Responsive ===== */
+  @media (max-width:960px){
+    .hero-grid{grid-template-columns:1fr;text-align:center}
+    .hero p{margin-inline:auto}
+    .hero-actions,.hero-stats{justify-content:center}
+    .hero-quote{border-right:none;border-bottom:3px solid var(--caramel);padding:0 0 .8rem}
+    .hero-art{max-width:420px;margin-inline:auto;order:-1}
+    .about-grid,.visit-grid{grid-template-columns:1fr}
+    .menu-grid{grid-template-columns:repeat(2,1fr)}
+    .feat-grid{grid-template-columns:repeat(2,1fr)}
+    .foot-grid{grid-template-columns:1fr}
+  }
+  @media (max-width:640px){
+    .nav-links,.nav .nav-cta{display:none}
+    .burger{display:block}
+    .menu-grid{grid-template-columns:1fr}
+    section{padding:4rem 0}
+    .hero{padding-top:6.5rem}
+    .hero-stats{gap:1.4rem}
+    .testi{padding:2rem 1.4rem}
+  }
+</style>
+</head>
+<body>
+
+<header id="header">
+  <div class="container nav">
+    <a class="logo" href="#top">
+      <svg class="cup" viewBox="0 0 48 48" fill="none">
+        <path d="M10 18h22v12a10 10 0 0 1-10 10h-2a10 10 0 0 1-10-10V18Z" fill="#c97b3d"/>
+        <path d="M32 20h4a5 5 0 0 1 0 10h-4" stroke="#c97b3d" stroke-width="3" fill="none"/>
+        <path d="M16 12c0-2 2-2 2-4M22 12c0-2 2-2 2-4" stroke="#f7f0e3" stroke-width="2.4" stroke-linecap="round"/>
+      </svg>
+      <span>الدّكة<small>SPECIALTY COFFEE</small></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">حكايتنا</a></li>
+      <li><a href="#menu">المنيو</a></li>
+      <li><a href="#why">ليه إحنا</a></li>
+      <li><a href="#reviews">آراء الروّاد</a></li>
+      <li><a href="#visit">زورونا</a></li>
+    </ul>
+    <a class="nav-cta" href="#visit">احجز ترابيزتك</a>
+    <button class="burger" id="burger" aria-label="القائمة"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<nav class="mobile-menu" id="mobileMenu">
+  <a href="#about">حكايتنا</a>
+  <a href="#menu">المنيو</a>
+  <a href="#why">ليه إحنا</a>
+  <a href="#reviews">آراء الروّاد</a>
+  <a href="#visit">زورونا</a>
+</nav>
+
+<section class="hero" id="top">
+  <div class="container hero-grid">
+    <div class="reveal visible">
+      <span class="kicker">☕ قهوة مختصة محمّصة عندنا</span>
+      <h1>قهوتك على أصولها،<br>ودّكم <em>دايمًا محفوظ</em></h1>
+      <p>في الدّكة بنحمّص البن عندنا كل أسبوع، وبنجهّز كل كوباية كأنها لأعز صاحب. تعالى خد مكانك على الدكة واسيب الباقي علينا.</p>
+      <p class="hero-quote">«القهوة الحلوة زي الصحبة الحلوة… كل ما عدّى الوقت تحسّ بطعمها أكتر»</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#menu">شوف المنيو</a>
+        <a class="btn btn-ghost" href="#visit">احجز ترابيزة</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><strong>+12</strong><span>صنف قهوة مختصة</span></div>
+        <div class="stat"><strong>4.9</strong><span>تقييم الروّاد</span></div>
+        <div class="stat"><strong>7 أيام</strong><span>مفتوحين من 8 الصبح</span></div>
+      </div>
+    </div>
+    <div class="hero-art reveal visible">
+      <img src="assets/hero-coffee.jpg" alt="قهوة الدّكة">
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="container about-grid">
+    <div class="about-visual reveal">
+      <img src="assets/about-cafe.jpg" alt="جو كافيه الدّكة">
+    </div>
+    <div class="about-text reveal">
+      <span class="sec-head tag" style="margin-bottom:.6rem">حكايتنا</span>
+      <h3>الدّكة مش مجرد كافيه… دي قعدة</h3>
+      <p>بدأنا سنة 2019 بركن صغير وبنّارة قديمة من بابا، واليوم بقينا المكان اللي الناس بتقصدنا فيه لما تدور على قهوة محترمة وقعدة هادية. بنستورد بنّ مختار من مزارع معروفة، وبنحمّصه عندنا بنفسنا علشان الطعم يوصلك زي ما هو المفروض يكون.</p>
+      <ul class="about-points">
+        <li><span class="tick">✓</span>تحميص أسبوعي طازج في الكافيه، مش بنجاهز قبلها</li>
+        <li><span class="tick">✓</span>باريستا متدربين بيعرفوا الفرق بين لاتيه وفلات وايت من غير ما تشرح</li>
+        <li><span class="tick">✓</span>حلويات بتتعمل عندنا كل يوم الصبح، مفيش مجمّد</li>
+        <li><span class="tick">✓</span>ركن شغل هادي بواي فاي سريع وكهربا جنب كل ترابيزة</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="menu-sec" id="menu">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="tag">المنيو</span>
+      <h2>أكتر حاجات الروّاد بيطلبوها</h2>
+      <p>اخترنا لك الأصناف اللي بتخلّي الناس ترجع تاني وتالت. والمنيو الكامل عندنا في الكافيه.</p>
+    </div>
+    <div class="menu-grid">
+      <div class="menu-card reveal">
+        <span class="badge">الأكثر طلبًا</span>
+        <img class="photo" src="assets/menu-turkish.jpg" alt="صورة المنتج">
+        <h4>قهوة تركي على الفحم <span class="price">35ج</span></h4>
+        <p>بن محمّص غامق، بتتعمل على الفحم زي زمان، بوجه وش كل حبة فيها ليها حساب.</p>
+      </div>
+      <div class="menu-card reveal">
+        <img class="photo" src="assets/menu-caramel-latte.jpg" alt="صورة المنتج">
+        <h4>لاتيه بالكراميل <span class="price">55ج</span></h4>
+        <p>إسبريسو دابل مع لبن مبخّر حريري وصوص كراميل بيتعمل عندنا، حلو من غير مبالغة.</p>
+      </div>
+      <div class="menu-card reveal">
+        <img class="photo" src="assets/menu-spanish-latte.jpg" alt="صورة المنتج">
+        <h4>آيس سبانيش لاتيه <span class="price">60ج</span></h4>
+        <p>المشروب اللي بيسيح في الصيف: إسبريسو على حليب مكثف وثلج مجروش، منعش ومركّز.</p>
+      </div>
+      <div class="menu-card reveal">
+        <img class="photo" src="assets/menu-mint-tea.jpg" alt="صورة المنتج">
+        <h4>شاي نعناع مغربي <span class="price">30ج</span></h4>
+        <p>شاي أخضر بورق نعناع طازة بيتقطف يومي، بيتقدّم في إبريق زي المغاربة بيعملوه.</p>
+      </div>
+      <div class="menu-card reveal">
+        <span class="badge">جديد</span>
+        <img class="photo" src="assets/menu-kunafa.jpg" alt="صورة المنتج">
+        <h4>كنافة بالمانجو <span class="price">50ج</span></h4>
+        <p>كنافة مقرمشة بطبقة مانجو طبيعية وكريمة خفيفة، من يوليو لسبتمبر بس — على قد الموسم.</p>
+      </div>
+      <div class="menu-card reveal">
+        <img class="photo" src="assets/menu-biscotti.jpg" alt="صورة المنتج">
+        <h4>باسكوتي اللوز <span class="price">25ج</span></h4>
+        <p>قطعتين باسكوتي باللوز المحمّص، بتتغمس في القهوة وبتبقى أحلى صاحبة للكوباية.</p>
+      </div>
+    </div>
+    <p class="menu-note">كل الأسعار شاملة الضريبة — وعندنا عروض وسط الأسبوع من 12 لـ 4 عصرًا.</p>
+  </div>
+</section>
+
+<section class="features" id="why">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="tag" style="background:rgba(201,123,61,.2);color:#e9b98a">ليه الدّكة؟</span>
+      <h2>أربع حاجات بنتمسك بيهم مهما حصل</h2>
+      <p>دي مش لافتة بنعلّقها، دي قواعد شغلنا من أول يوم.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat reveal">
+        <div class="f-ic">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#e9b98a" stroke-width="1.8"/><path d="M12 7v5l3.5 2" stroke="#e9b98a" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <h4>طازة دايمًا</h4>
+        <p>البن بيتحمّص كل أسبوع والحلويات كل يوم، مفيش حاجة بتستنى حد.</p>
+      </div>
+      <div class="feat reveal">
+        <div class="f-ic">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-4.6-9-9a5.2 5.2 0 0 1 9-4 5.2 5.2 0 0 1 9 4c-2 4.4-9 9-9 9Z" fill="#e9b98a"/></svg>
+        </div>
+        <h4>ود قبل البيزنس</h4>
+        <p>بنعرف روّادنا بأسمائهم وطلباتهم، وهتتعامل مع ناس بتحب المكان فعلًا.</p>
+      </div>
+      <div class="feat reveal">
+        <div class="f-ic">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M4 19V5m0 14h16M8 16v-6m4 6V8m4 8v-4" stroke="#e9b98a" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <h4>مكان يشجع شغل</h4>
+        <p>واي فاي سريع، إضاءة مريحة، وركن هادي مخصوص للي عايز يذاكر أو يشتغل.</p>
+      </div>
+      <div class="feat reveal">
+        <div class="f-ic">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 3 4 8v8l8 5 8-5V8l-8-5Z" stroke="#e9b98a" stroke-width="1.8"/><path d="m9 12 2 2 4-4" stroke="#e9b98a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h4>أسعار على قد الإيد</h4>
+        <p>جودة قهوة مختصة من غير أسعار تفصلك، وعروض أسبوعية للروّاد.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="reviews">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="tag">آراء الروّاد</span>
+      <h2>الناس اللي بقت من العيلة</h2>
+    </div>
+    <div class="testi-wrap reveal">
+      <div class="testi-stage">
+        <div class="testi-track" id="testiTrack">
+          <div class="testi">
+            <div class="stars">★★★★★</div>
+            <blockquote>أنا شغال فري لانسر وبقالي سنة بشتغل من الدّكة كل يوم تقريبًا. القهوة ثابتة الطعم، والمكان هادي، والواي فاي مبيقطعش. حسّ إن دي أوضة شغلي مش كافيه.</blockquote>
+            <div class="who">
+              <span class="av" style="background:#a85f26">م</span>
+              <span class="nm"><strong>محمد الشاذلي</strong><span>مصمم جرافيك — رائد دائم</span></span>
+            </div>
+          </div>
+          <div class="testi">
+            <div class="stars">★★★★★</div>
+            <blockquote>اللاتيه بالكراميل عندهم حاجة تانية خالص. وجربت الكنافة بالمانجو في الموسم وندمت إني ماكلتهاش من زمان. المكان نضيف والستاف بجد بيحبوا شغلهم.</blockquote>
+            <div class="who">
+              <span class="av" style="background:#7d8a6a">س</span>
+              <span class="nm"><strong>سارة عبد الرحمن</strong><span>طبيبة أسنان</span></span>
+            </div>
+          </div>
+          <div class="testi">
+            <div class="stars">★★★★★</div>
+            <blockquote>بقعد فيها مع أصحابي كل جمعة. القهوة التركي على الفحم فاكرةني بقعدة جدي، والأسعار معقولة جدًا مقارنة بالجودة. أنصح أي حد يجربها مرة واحدة بس.</blockquote>
+            <div class="who">
+              <span class="av" style="background:#6f4226">أ</span>
+              <span class="nm"><strong>أحمد كمال</strong><span>مهندس مدني</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-dots" id="testiDots"></div>
+    </div>
+  </div>
+</section>
+
+<section class="visit" id="visit">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="tag">زورونا</span>
+      <h2>مستنيينك من 8 الصبح لـ 12 بالليل</h2>
+    </div>
+    <div class="visit-grid">
+      <div class="visit-info reveal">
+        <h3>تفاصيل الزيارة</h3>
+        <div class="info-row">
+          <span class="ic">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11Z" stroke="#a85f26" stroke-width="1.8"/><circle cx="12" cy="10" r="2.6" fill="#a85f26"/></svg>
+          </span>
+          <div><strong>العنوان</strong><span>15 شارع الجمهورية، وسط البلد، أسيوط — جنب مكتبة النور</span></div>
+        </div>
+        <div class="info-row">
+          <span class="ic">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#a85f26" stroke-width="1.8"/><path d="M12 7v5l3 2" stroke="#a85f26" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </span>
+          <div><strong>المواعيد</strong><span>يوميًا من 8:00 صباحًا لـ 12:00 منتصف الليل — الجمعة من 2 الضهر</span></div>
+        </div>
+        <div class="info-row">
+          <span class="ic">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z" stroke="#a85f26" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          </span>
+          <div><strong>للحجز والاستفسار</strong><span dir="ltr">0100 123 4567</span></div>
+        </div>
+        <div class="info-row">
+          <span class="ic">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="3" stroke="#a85f26" stroke-width="1.8"/><path d="m4 7 8 6 8-6" stroke="#a85f26" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <div><strong>الإيميل</strong><span dir="ltr">hello@eldakka.cafe</span></div>
+        </div>
+      </div>
+      <form class="book-form reveal" id="bookForm" novalidate>
+        <h4>احجز ترابيزتك</h4>
+        <p class="sub">سيب بياناتك وهنأكدلك الحجز في مكالمة أو رسالة خلال ربع ساعة في مواعيد الشغل.</p>
+        <div class="field">
+          <label for="name">الاسم</label>
+          <input type="text" id="name" placeholder="اكتب اسمك" required>
+          <span class="err">من فضلك اكتب اسمك</span>
+        </div>
+        <div class="field">
+          <label for="phone">رقم الموبايل</label>
+          <input type="tel" id="phone" placeholder="01xxxxxxxxx" required>
+          <span class="err">اكتب رقم موبايل صحيح (11 رقم يبدأ بـ 01)</span>
+        </div>
+        <div class="field">
+          <label for="guests">عدد الأفراد</label>
+          <select id="guests" required>
+            <option value="">اختار العدد</option>
+            <option>1 - 2</option>
+            <option>3 - 4</option>
+            <option>5 - 6</option>
+            <option>أكتر من 6 (قعدة جماعية)</option>
+          </select>
+          <span class="err">اختار عدد الأفراد</span>
+        </div>
+        <div class="field">
+          <label for="time">معاد الحجز</label>
+          <input type="datetime-local" id="time" required>
+          <span class="err">اختار المعاد</span>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">تأكيد الحجز</button>
+        <div class="form-ok" id="formOk">تمام! وصلنا طلبك وهنتصل بيك للتأكيد في أقرب وقت. ☕</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="logo" href="#top">
+          <svg class="cup" viewBox="0 0 48 48" fill="none">
+            <path d="M10 18h22v12a10 10 0 0 1-10 10h-2a10 10 0 0 1-10-10V18Z" fill="#c97b3d"/>
+            <path d="M32 20h4a5 5 0 0 1 0 10h-4" stroke="#c97b3d" stroke-width="3" fill="none"/>
+            <path d="M16 12c0-2 2-2 2-4M22 12c0-2 2-2 2-4" stroke="#f7f0e3" stroke-width="2.4" stroke-linecap="round"/>
+          </svg>
+          <span>الدّكة<small>SPECIALTY COFFEE</small></span>
+        </a>
+        <p>كافيه مصري بطابع عصري، هدفنا إن كل كوباية تكون سبب في يوم أحلى.</p>
+      </div>
+      <div>
+        <h5>روابط سريعة</h5>
+        <ul>
+          <li><a href="#about">حكايتنا</a></li>
+          <li><a href="#menu">المنيو</a></li>
+          <li><a href="#reviews">آراء الروّاد</a></li>
+          <li><a href="#visit">احجز ترابيزة</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>تابعنا</h5>
+        <ul>
+          <li><a href="#">إنستجرام — <span dir="ltr">@eldakka.cafe</span></a></li>
+          <li><a href="#">فيسبوك — الدّكة كافيه</a></li>
+          <li><a href="#">تيك توك — <span dir="ltr">@eldakka</span></a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="copy">© 2026 الدّكة كافيه — كل الحقوق محفوظة. اتعمل بحب وقهوة كتير.</p>
+  </div>
+</footer>
+
+<script>
+  // Sticky header
+  const header = document.getElementById('header');
+  addEventListener('scroll', () => header.classList.toggle('scrolled', scrollY > 40));
+  header.classList.toggle('scrolled', scrollY > 40);
+
+  // Mobile menu
+  const burger = document.getElementById('burger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    burger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  }));
+
+  // Reveal on scroll
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el => io.observe(el));
+
+  // Testimonial slider
+  const track = document.getElementById('testiTrack');
+  const dotsWrap = document.getElementById('testiDots');
+  const slides = track.children.length;
+  let current = 0, timer;
+  for (let i = 0; i < slides; i++) {
+    const b = document.createElement('button');
+    b.setAttribute('aria-label', 'رأي رقم ' + (i + 1));
+    b.addEventListener('click', () => { goTo(i); restart(); });
+    dotsWrap.appendChild(b);
+  }
+  const dots = [...dotsWrap.children];
+  function goTo(i) {
+    current = (i + slides) % slides;
+    track.style.transform = 'translateX(' + (current * 100) + '%)';
+    dots.forEach((d, idx) => d.classList.toggle('active', idx === current));
+  }
+  function restart() { clearInterval(timer); timer = setInterval(() => goTo(current + 1), 5000); }
+  goTo(0); restart();
+
+  // Booking form validation
+  const form = document.getElementById('bookForm');
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    let ok = true;
+    const name = form.name, phone = form.phone, guests = form.guests, time = form.time;
+    const mark = (input, valid) => {
+      input.closest('.field').classList.toggle('invalid', !valid);
+      if (!valid) ok = false;
+    };
+    mark(name, name.value.trim().length >= 2);
+    mark(phone, /^01[0-9]{9}$/.test(phone.value.trim()));
+    mark(guests, guests.value !== '');
+    mark(time, time.value !== '');
+    if (ok) {
+      document.getElementById('formOk').classList.add('show');
+      form.reset();
+      setTimeout(() => document.getElementById('formOk').classList.remove('show'), 6000);
+    }
+  });
+</script>
+</body>
+</html>
